@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+    <TextView
+        android:id="@+id/li_dev_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#0000FF"
+        android:textStyle="bold"
+        android:text="Device Name"/>
+    <TextView
+        android:id="@+id/li_dev_addr_lt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/li_dev_name"
+        android:text="("/>
+    <TextView
+        android:id="@+id/li_dev_addr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/li_dev_name"
+        android:layout_toEndOf="@id/li_dev_addr_lt"
+        android:text="Device Address"/>
+    <TextView
+        android:id="@+id/li_dev_addr_gt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/li_dev_name"
+        android:layout_toEndOf="@id/li_dev_addr"
+        android:text=")"/>
+    <TextView
+        android:id="@+id/li_dev_rssi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@id/li_dev_addr"
+        android:text="-60"/>
+    <TextView
+        android:id="@+id/li_dev_rssi_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/li_dev_rssi"
+        android:layout_alignBottom="@id/li_dev_addr"
+        android:text="RSSI:"/>
+
+</RelativeLayout>

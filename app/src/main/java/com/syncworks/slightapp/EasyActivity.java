@@ -8,9 +8,9 @@ import android.view.MenuItem;
 
 
 public class EasyActivity extends ActionBarActivity {
-    // »ó´Ü ¸Ş´º
+    // ìƒë‹¨ ë©”ë‰´
     private Menu menu = null;
-    // ¿¬°á »óÅÂ È®ÀÎ
+    // ì—°ê²° ìƒíƒœ í™•ì¸
     private boolean connectState = false;
 
     @Override
@@ -71,8 +71,8 @@ public class EasyActivity extends ActionBarActivity {
     }
 
     /**
-     * ActionBar ÀÇ ¿¬°á »óÅÂ ¾ÆÀÌÄÜ ¼³Á¤
-     * @param connectState ¿¬°á»óÅÂ(true:¿¬°á, false:²÷±è)
+     * ActionBar ì˜ ì—°ê²° ìƒíƒœ ì•„ì´ì½˜ ì„¤ì •
+     * @param connectState ì—°ê²°ìƒíƒœ(true:ì—°ê²°, false:ëŠê¹€)
      */
     private void setConnectIcon(boolean connectState) {
         this.connectState = connectState;
