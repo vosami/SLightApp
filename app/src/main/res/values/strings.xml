@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">SLightApp</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_easy">EasyActivity</string>
+
+    <!---->
+    <string name="easy_action_connect">connect</string>
+    <string name="easy_action_question">help</string>
+</resources>

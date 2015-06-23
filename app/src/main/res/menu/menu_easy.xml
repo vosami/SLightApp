@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.syncworks.slightapp.EasyActivity">
+    <item android:id="@+id/action_connect"
+        android:icon="@drawable/ic_disconnected"
+        android:title="@string/easy_action_connect"
+        app:showAsAction="ifRoom"/>
+    <item android:id="@+id/action_help"
+        android:icon="@drawable/icon_help"
+        android:title="@string/easy_action_question"
+        app:showAsAction="ifRoom"/></menu>
