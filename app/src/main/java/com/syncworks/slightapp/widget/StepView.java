@@ -1,18 +1,12 @@
 package com.syncworks.slightapp.widget;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.text.TextPaint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-
-import com.syncworks.slightapp.R;
 
 
 public class StepView extends View {
@@ -176,8 +170,7 @@ public class StepView extends View {
                 int curTouch = getTouchStep(touchX);
                 if (curTouch >= 0 && curTouch <= MAX_STEP) {
                     if (oldStep == curTouch) {
-                        doStepViewEvent(curTouch);
-                        Log.d("test","click"+curTouch);
+                        doStepViewEvent(curTouch+1);
                     }
                 }
                 oldStep = -1;

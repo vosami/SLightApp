@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="attr_led_button">
+        <attr name="text_on" format="string"/>
+        <attr name="text_off" format="string"/>
+        <attr name="bright" format="integer"/>
+        <attr name="effect" format="integer"/>
+    </declare-styleable>
+</resources>

@@ -44,7 +44,7 @@
             android:layout_alignParentTop="true"
             android:layout_above="@id/easy_step_view"/>
     </RelativeLayout>
-    <RelativeLayout
+    <!--<RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/Black_overlay">
@@ -54,6 +54,6 @@
             android:textSize="20sp"
             android:textColor="@color/White"
             android:text="안녕하세요."/>
-    </RelativeLayout>
+    </RelativeLayout>-->
 
 </FrameLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="led_1"/>
+    <item type="id" name="led_2"/>
+    <item type="id" name="led_3"/>
+    <item type="id" name="led_4"/>
+    <item type="id" name="led_5"/>
+    <item type="id" name="led_6"/>
+    <item type="id" name="led_7"/>
+    <item type="id" name="led_8"/>
+    <item type="id" name="led_9"/>
+    <item type="id" name="rgb_1"/>
+    <item type="id" name="rgb_2"/>
+    <item type="id" name="rgb_3"/>
+</resources>

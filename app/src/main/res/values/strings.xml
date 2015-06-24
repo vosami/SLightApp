@@ -7,7 +7,36 @@
 
     <string name="str_back">뒤로</string>
     <string name="str_next">다음단계</string>
+    <string name="str_complete">완료</string>
+
+    <string name="lt">(</string>
+    <string name="gt">)</string>
+
+    <string name="led1_txt">Led1</string>
+    <string name="led2_txt">Led2</string>
+    <string name="led3_txt">Led3</string>
+    <string name="led4_txt">Led4</string>
+    <string name="led5_txt">Led5</string>
+    <string name="led6_txt">Led6</string>
+    <string name="led7_txt">Led7</string>
+    <string name="led8_txt">Led8</string>
+    <string name="led9_txt">Led9</string>
+    <string name="cled1_txt">Color Led 1</string>
+    <string name="cled2_txt">Color Led 2</string>
+    <string name="cled3_txt">Color Led 3</string>
+
+    <string name="ble_default_device_name">Unknown</string>
+    <string name="ble_default_device_address">00:00:00:00:00:00</string>
+    <string name="ble_change_name">이름변경</string>
+    <string name="ble_scan">검색</string>
+    <string name="ble_stop">중지</string>
+    <string name="ble_selected_device">현재 설정된 장치</string>
+    <string name="ble_scan_result_list">검색된 장치 목록</string>
     <!--EasyActivity-->
     <string name="easy_action_connect">connect</string>
     <string name="easy_action_question">help</string>
+    <string name="easy_activity_step_1">1단계:블루투스 설정</string>
+    <string name="easy_activity_step_2">2단계:LED 선택</string>
+    <string name="easy_activity_step_3">3단계:밝기 설정</string>
+    <string name="easy_activity_step_4">4단계:점멸 효과 선택</string>
 </resources>

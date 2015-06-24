@@ -1,26 +1,55 @@
 package com.syncworks.slightapp;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.syncworks.blelib.BleConsumer;
+import com.syncworks.slightapp.easy_fragments.BleSetFragment;
+import com.syncworks.slightapp.easy_fragments.LedSelectFragment;
+import com.syncworks.slightapp.easy_fragments.OnEasyFragmentListener;
+import com.syncworks.slightapp.util.Logger;
+import com.syncworks.slightapp.util.SLightPref;
+import com.syncworks.slightapp.widget.StepView;
 
-public class EasyActivity extends ActionBarActivity {
+
+public class EasyActivity extends ActionBarActivity implements BleConsumer, OnEasyFragmentListener{
     // 상단 메뉴
     private Menu menu = null;
     // 연결 상태 확인
     private boolean connectState = false;
 
+    /* 장치 설정 확인*/
+    SLightPref appPref = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_easy);
+        appPref = new SLightPref(this);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        findView();
+        createFragment();
+    }
+
+    private StepView stepView = null;
+
+    private void findView() {
+        stepView = (StepView) findViewById(R.id.easy_step_view);
+        StepView.OnStepViewTouchListener stepViewTouchListener = new StepView.OnStepViewTouchListener() {
+            @Override
+            public void onStepViewEvent(int clickStep) {
+                Logger.v(this,"",clickStep);
+            }
+        };
+        stepView.setOnStepViewTouchListener(stepViewTouchListener);
     }
 
     @Override
@@ -77,5 +106,91 @@ public class EasyActivity extends ActionBarActivity {
     private void setConnectIcon(boolean connectState) {
         this.connectState = connectState;
         invalidateOptionsMenu();
+    }
+    /**********************************************************************************************
+     * 블루투스 관련 설정
+     *********************************************************************************************/
+    @Override
+    public void onBleServiceConnect() {
+
+    }
+
+    /**********************************************************************************************
+     * Fragment 관련 설정
+     *********************************************************************************************/
+
+    private BleSetFragment fragment1st;
+    private LedSelectFragment fragment2nd;
+//    private BrightFragment fragment3rd;
+//    private EffectFragment fragment4th;
+
+    private void createFragment() {
+        String deviceName, deviceAddr;
+        deviceName = appPref.getString(SLightPref.DEVICE_NAME);
+        deviceAddr = appPref.getString(SLightPref.DEVICE_ADDR);
+        fragment1st = BleSetFragment.newInstance(deviceName, deviceAddr);
+        fragment2nd = LedSelectFragment.newInstance(0);
+//        fragment3rd = BrightFragment.newInstance();
+//        fragment4th = EffectFragment.newInstance();
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.easy_ll_fragment, fragment2nd);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onModifyName() {
+
+    }
+
+    @Override
+    public void onScanStart() {
+
+    }
+
+    @Override
+    public void onScanStop() {
+
+    }
+
+    @Override
+    public void onSetDeviceItem(String devName, String devAddr) {
+
+    }
+
+    @Override
+    public void onSelectLed(int ledNum, boolean state) {
+
+    }
+
+    @Override
+    public void onSelectRGB(int ledNum, boolean state) {
+
+    }
+
+    @Override
+    public void onBrightRGB(int ledNum, int bright) {
+
+    }
+
+    @Override
+    public void onBrightLed(int ledNum, int bright) {
+
+    }
+
+    @Override
+    public void onEffect(int effect, int param) {
+
+    }
+
+    @Override
+    public void onColorDialog() {
+
+    }
+
+    @Override
+    public void onNotDialog() {
+
     }
 }
