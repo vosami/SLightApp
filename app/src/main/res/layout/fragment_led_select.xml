@@ -26,19 +26,27 @@
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:orientation="horizontal">
-        <com.syncworks.slightapp.widget.LedButton
+        <com.syncworks.slightapp.widget.LedButtonLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            custom:off_text="1"
-            custom:on_text="✓"/>
-        <com.syncworks.slightapp.widget.LedButton
+            custom:l_on_text="✓"
+            custom:l_off_text="1"
+            custom:l_led_num="1"
+            custom:l_effect="false"
+            custom:l_checked="false"
+            custom:l_enable="true"/>
+        <com.syncworks.slightapp.widget.LedButtonLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            custom:off_text="2"
-            custom:on_text="✓"
-            custom:check="true"/>
+            custom:l_on_text="✓"
+            custom:l_off_text="2"
+            custom:l_led_num="2"
+            custom:l_effect="true"
+            custom:l_bright="50"
+            custom:l_checked="false"
+            custom:l_enable="true"/>
         <com.syncworks.slightapp.widget.LedButton
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -2,6 +2,7 @@
     <declare-styleable name="LedButton">
         <attr name="off_text" format="string"/>
         <attr name="on_text" format="string"/>
+        <attr name="enable" format="boolean"/>
         <attr name="check" format="boolean"/>
         <attr name="effect" format="boolean"/>
         <attr name="bright" format="integer"/>

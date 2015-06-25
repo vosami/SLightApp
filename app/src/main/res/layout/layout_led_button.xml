@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <com.syncworks.slightapp.widget.LedButton
+            android:id="@+id/layout_led_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            custom:off_text=""
+            custom:on_text=""/>
+        <TextView
+            android:id="@+id/layout_tv_effect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/str_effect"/>
+        <TextView
+            android:id="@+id/layout_tv_effect_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/str_effect"/>
+    </LinearLayout>
+</merge>

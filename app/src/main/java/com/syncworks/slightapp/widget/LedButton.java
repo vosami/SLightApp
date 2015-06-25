@@ -8,19 +8,26 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
-import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.syncworks.slightapp.R;
+import com.syncworks.slightapp.util.Logger;
+
 /**
  * TODO: document your custom view class.
  */
 public class LedButton extends View {
+
+    public final static int DEFAULT_BRIGHT = 95;
+
+    private OnLedButtonListener ledButtonListener;
+
     private String onText;
     private String offText;
+    private boolean isEnable;
     private boolean isChecked;
     private boolean isEffect;
     private int bright;
@@ -60,17 +67,19 @@ public class LedButton extends View {
 
             onText = a.getString(R.styleable.LedButton_on_text);
             offText = a.getString(R.styleable.LedButton_off_text);
+            isEnable = a.getBoolean(R.styleable.LedButton_enable,true);
             isChecked = a.getBoolean(R.styleable.LedButton_check, false);
             isEffect = a.getBoolean(R.styleable.LedButton_effect, false);
-            bright = a.getInt(R.styleable.LedButton_bright, 95);
+            bright = a.getInt(R.styleable.LedButton_bright, DEFAULT_BRIGHT);
 
             a.recycle();
         } else {
             onText = "✓";
             offText = "0";
+            isEnable = true;
             isChecked = false;
             isEffect = false;
-            bright = 95;
+            bright = DEFAULT_BRIGHT;
         }
         shadowPaint = new Paint();
         shadowPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
@@ -138,9 +147,9 @@ public class LedButton extends View {
         }
         float padding = (float) (widthSize * 0.05);
         float shadowPadding = (float) (widthSize * 0.03);
-        rect.set(padding, padding, widthSize-padding, heightSize - padding);
-        shadowRect.set(padding+shadowPadding, padding+shadowPadding, widthSize-padding+shadowPadding, heightSize - padding+shadowPadding);
-        innerRect.set(padding-shadowPadding, padding-shadowPadding, widthSize - padding-shadowPadding, heightSize - padding-shadowPadding);
+        rect.set(padding, padding, widthSize - padding, heightSize - padding);
+        shadowRect.set(padding + shadowPadding, padding + shadowPadding, widthSize - padding + shadowPadding, heightSize - padding + shadowPadding);
+        innerRect.set(padding - shadowPadding, padding - shadowPadding, widthSize - padding - shadowPadding, heightSize - padding - shadowPadding);
         setMeasuredDimension(widthSize, heightSize);
     }
 
@@ -158,7 +167,7 @@ public class LedButton extends View {
         mTextPaint.setTextSize((float) (contentHeight * 0.5));
 
         if (isEffect) {
-            if (isEnabled()) {
+            if (isEnable) {
                 if (isChecked) {
                     textX = (float) (contentWidth * 0.5);
                     fillPaint.setShader(new LinearGradient(0, 0, 0, contentHeight, Color.rgb(83, 147, 63), Color.rgb(112, 198, 86), Shader.TileMode.MIRROR));
@@ -168,7 +177,8 @@ public class LedButton extends View {
                     mText = onText;
                 } else {
                     textX = (float) (contentWidth * 0.5);
-                    fillPaint.setColor(Color.rgb(255,255,255));
+                    //fillPaint.setColor(Color.rgb(255,255,255));
+                    fillPaint.setShader(new LinearGradient(0, 0, 0, contentHeight, Color.rgb(255,255,255), Color.rgb(255,255,255), Shader.TileMode.MIRROR));
                     strokePaint.setColor(Color.rgb(150, 150, 150));
                     mTextPaint.setColor(Color.rgb(30, 30, 30));
                     shadowPaint.setColor(Color.rgb(100, 100, 100));
@@ -184,7 +194,7 @@ public class LedButton extends View {
             }
         } else {
             textX = (float) (contentWidth * 0.5);
-            if (isEnabled()) {
+            if (isEnable) {
                 if (isChecked) {
                     fillPaint.setShader(new LinearGradient(0, 0, 0, contentHeight, Color.rgb(83, 147, 63), Color.rgb(112, 198, 86), Shader.TileMode.MIRROR));
                     strokePaint.setColor(Color.rgb(0, 0, 0));
@@ -209,20 +219,90 @@ public class LedButton extends View {
         }
 
         canvas.drawRoundRect(rect, radius, radius, fillPaint);
-        if (isEffect & isEnabled() & !isChecked) {
+        if (isEffect & isEnable & !isChecked) {
             float percent = (float)((contentHeight - (contentWidth * 0.05)) + ((float)bright/191)*((contentWidth * 0.1)-contentHeight));//((bright/191)*((contentHeight - (contentWidth * 0.05))-(contentWidth * 0.05)));
             canvas.drawRect((float)(contentWidth*0.2),(float)(contentWidth * 0.05),(float)(contentWidth*0.8),(float)(contentHeight - (contentWidth * 0.05)),percentStrokePaint);
-            canvas.drawRect((float)(contentWidth*0.23),percent,(float)(contentWidth*0.77),(float)(contentHeight - (contentWidth * 0.05)),percentPaint);
+            canvas.drawRect((float) (contentWidth * 0.23), percent, (float) (contentWidth * 0.77), (float) (contentHeight - (contentWidth * 0.05)), percentPaint);
         }
-        canvas.drawRoundRect(rect,radius,radius,strokePaint);
+        canvas.drawRoundRect(rect, radius, radius, strokePaint);
         canvas.drawText(mText, textX, (float) (contentHeight * 0.7), mTextPaint);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (isEnabled()) {
-
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                Logger.d(this,"ACTION_DOWN");
+                if(isChecked) {
+                    setChecked(false);
+                } else {
+                    if (isEffect) {
+                        isEffect = false;
+                        bright = DEFAULT_BRIGHT;
+                    }
+                    setChecked(true);
+                }
+                doCheckEvent();
+                this.invalidate();
+                break;
+            case MotionEvent.ACTION_UP:
+                Logger.d(this,"ACTION_UP");
+                break;
+            case MotionEvent.ACTION_MOVE:
+                Logger.d(this,"ACTION_MOVE");
+                break;
         }
+
+
         return super.onTouchEvent(event);
+    }
+
+
+    // 체크 상태 설정
+    public void setChecked(boolean check) {
+        isChecked = check;
+    }
+
+    public void setEnable(boolean enable) {
+        isEnable = enable;
+    }
+
+    // 밝기 설정
+    public void setBright(int bright) {
+        if(bright <0) {
+            this.bright = 0;
+        } else if (bright > 191) {
+            this.bright = 191;
+        } else {
+            this.bright = bright;
+        }
+    }
+
+    // 효과 설정
+    public void setEffect(boolean effect) {
+        isEffect = effect;
+    }
+
+    public void init(String onText, String offText, boolean isEnable, boolean isChecked, boolean isEffect, int bright) {
+        this.onText = onText;
+        this.offText = offText;
+        this.isEnable = isEnable;
+        this.isChecked = isChecked;
+        this.isEffect = isEffect;
+        this.bright = bright;
+    }
+
+    public void setOnLedButtonListener(OnLedButtonListener listener) {
+        ledButtonListener = listener;
+    }
+
+    public interface OnLedButtonListener {
+        void onCheckEvent(boolean check, boolean effect);
+    }
+
+    private void doCheckEvent() {
+        if (ledButtonListener != null) {
+            ledButtonListener.onCheckEvent(this.isChecked, this.isEffect);
+        }
     }
 }
