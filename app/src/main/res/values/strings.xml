@@ -41,4 +41,7 @@
     <string name="easy_activity_step_2">2단계:LED 선택</string>
     <string name="easy_activity_step_3">3단계:밝기 설정</string>
     <string name="easy_activity_step_4">4단계:점멸 효과 선택</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

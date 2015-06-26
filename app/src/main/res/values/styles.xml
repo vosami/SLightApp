@@ -26,4 +26,29 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="default_seekbar">
+        <item name="android:thumb">@drawable/seek_default_thumb</item>
+        <item name="android:progressDrawable">@drawable/seek_default</item>
+        <item name="android:max">191</item>
+        <item name="android:progress">95</item>
+    </style>
+    <style name="red_seekbar">
+        <item name="android:thumb">@drawable/seek_red_thumb</item>
+        <item name="android:progressDrawable">@drawable/seek_red</item>
+        <item name="android:max">191</item>
+        <item name="android:progress">95</item>
+    </style>
+    <style name="green_seekbar">
+        <item name="android:thumb">@drawable/seek_green_thumb</item>
+        <item name="android:progressDrawable">@drawable/seek_green</item>
+        <item name="android:max">191</item>
+        <item name="android:progress">95</item>
+    </style>
+    <style name="blue_seekbar">
+        <item name="android:thumb">@drawable/seek_blue_thumb</item>
+        <item name="android:progressDrawable">@drawable/seek_blue</item>
+        <item name="android:max">191</item>
+        <item name="android:progress">95</item>
+    </style>
+
 </resources>

@@ -154,10 +154,6 @@ public class StepView extends View {
         if (!isEnabled()) {
             return false;
         }
-        //float mWidth = getMeasuredWidth();
-        //float mHeight = getMeasuredHeight();
-        //float intervalWidth = (mWidth - mHeight) / (MAX_STEP-1);
-        // 터치 입력 좌표값을 얻어옵니다.
         int touchX = (int) event.getX();
 
         switch (event.getAction()) {

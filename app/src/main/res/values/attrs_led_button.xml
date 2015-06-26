@@ -6,5 +6,9 @@
         <attr name="check" format="boolean"/>
         <attr name="effect" format="boolean"/>
         <attr name="bright" format="integer"/>
+        <attr name="pattern" format="integer"/>
+        <attr name="red_bright" format="integer"/>
+        <attr name="green_bright" format="integer"/>
+        <attr name="blue_bright" format="integer"/>
     </declare-styleable>
 </resources>

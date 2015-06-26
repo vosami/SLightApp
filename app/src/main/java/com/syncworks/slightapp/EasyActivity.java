@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.syncworks.blelib.BleConsumer;
 import com.syncworks.slightapp.easy_fragments.BleSetFragment;
+import com.syncworks.slightapp.easy_fragments.BrightFragment;
 import com.syncworks.slightapp.easy_fragments.LedSelectFragment;
 import com.syncworks.slightapp.easy_fragments.OnEasyFragmentListener;
 import com.syncworks.slightapp.util.Logger;
@@ -121,7 +122,7 @@ public class EasyActivity extends ActionBarActivity implements BleConsumer, OnEa
 
     private BleSetFragment fragment1st;
     private LedSelectFragment fragment2nd;
-//    private BrightFragment fragment3rd;
+    private BrightFragment fragment3rd;
 //    private EffectFragment fragment4th;
 
     private void createFragment() {
@@ -130,12 +131,12 @@ public class EasyActivity extends ActionBarActivity implements BleConsumer, OnEa
         deviceAddr = appPref.getString(SLightPref.DEVICE_ADDR);
         fragment1st = BleSetFragment.newInstance(deviceName, deviceAddr);
         fragment2nd = LedSelectFragment.newInstance(0);
-//        fragment3rd = BrightFragment.newInstance();
+        fragment3rd = BrightFragment.newInstance("","");
 //        fragment4th = EffectFragment.newInstance();
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.easy_ll_fragment, fragment2nd);
+        fragmentTransaction.add(R.id.easy_ll_fragment, fragment3rd);
         fragmentTransaction.commit();
     }
 

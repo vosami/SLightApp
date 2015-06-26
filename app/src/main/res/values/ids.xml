@@ -12,4 +12,13 @@
     <item type="id" name="rgb_1"/>
     <item type="id" name="rgb_2"/>
     <item type="id" name="rgb_3"/>
+    <item type="id" name="led_1_seekbar"/>
+    <item type="id" name="led_2_seekbar"/>
+    <item type="id" name="led_3_seekbar"/>
+    <item type="id" name="led_4_seekbar"/>
+    <item type="id" name="led_5_seekbar"/>
+    <item type="id" name="led_6_seekbar"/>
+    <item type="id" name="led_7_seekbar"/>
+    <item type="id" name="led_8_seekbar"/>
+    <item type="id" name="led_9_seekbar"/>
 </resources>

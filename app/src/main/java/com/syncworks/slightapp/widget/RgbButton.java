@@ -21,7 +21,7 @@ import com.syncworks.slightapp.util.Logger;
 /**
  * TODO: document your custom view class.
  */
-public class LedButton extends View {
+public class RgbButton extends View {
 
     float btnHeight;
 
@@ -34,32 +34,37 @@ public class LedButton extends View {
     private boolean isEnable;
     private boolean isChecked;
     private boolean isEffect;
-    private int bright;
+    private int redBright;
+    private int greenBright;
+    private int blueBright;
     private int pattern;
 
+
+    private Paint clearPaint;
     private Paint shadowPaint;
     private Paint fillPaint;
     private Paint strokePaint;
-    private Paint percentPaint;
+    private Paint redPercentPaint;
+    private Paint greenPercentPaint;
+    private Paint bluePercentPaint;
     private Paint percentStrokePaint;
     private TextPaint mTextPaint;
 
     private RectF rect;
     private RectF shadowRect;
-    private RectF innerRect;
 
 
-    public LedButton(Context context) {
+    public RgbButton(Context context) {
         super(context);
         init(null, 0);
     }
 
-    public LedButton(Context context, AttributeSet attrs) {
+    public RgbButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs, 0);
     }
 
-    public LedButton(Context context, AttributeSet attrs, int defStyle) {
+    public RgbButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(attrs, defStyle);
     }
@@ -77,7 +82,9 @@ public class LedButton extends View {
             isEnable = a.getBoolean(R.styleable.LedButton_enable, true);
             isChecked = a.getBoolean(R.styleable.LedButton_check, false);
             isEffect = a.getBoolean(R.styleable.LedButton_effect, false);
-            bright = a.getInt(R.styleable.LedButton_bright, DEFAULT_BRIGHT);
+            redBright = a.getInt(R.styleable.LedButton_red_bright, DEFAULT_BRIGHT);
+            greenBright = a.getInt(R.styleable.LedButton_green_bright,DEFAULT_BRIGHT);
+            blueBright = a.getInt(R.styleable.LedButton_blue_bright,DEFAULT_BRIGHT);
             pattern = a.getInt(R.styleable.LedButton_pattern, 0);
 
             a.recycle();
@@ -87,9 +94,16 @@ public class LedButton extends View {
             isEnable = true;
             isChecked = false;
             isEffect = false;
-            bright = DEFAULT_BRIGHT;
+            redBright = DEFAULT_BRIGHT;
+            greenBright = DEFAULT_BRIGHT;
+            blueBright = DEFAULT_BRIGHT;
             pattern = 0;
         }
+        clearPaint = new Paint();
+        clearPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
+        clearPaint.setStyle(Paint.Style.FILL);
+        clearPaint.setColor(Color.rgb(255,255,255));
+
         shadowPaint = new Paint();
         shadowPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
         shadowPaint.setStyle(Paint.Style.FILL);
@@ -108,10 +122,20 @@ public class LedButton extends View {
         mTextPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
 
-        percentPaint = new Paint();
-        percentPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
-        percentPaint.setStyle(Paint.Style.FILL);
-        percentPaint.setColor(Color.rgb(247, 153, 75));
+        redPercentPaint = new Paint();
+        redPercentPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
+        redPercentPaint.setStyle(Paint.Style.FILL);
+        redPercentPaint.setColor(Color.rgb(240,49,49));
+
+        greenPercentPaint = new Paint();
+        greenPercentPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
+        greenPercentPaint.setStyle(Paint.Style.FILL);
+        greenPercentPaint.setColor(Color.rgb(138,189,0));
+
+        bluePercentPaint = new Paint();
+        bluePercentPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
+        bluePercentPaint.setStyle(Paint.Style.FILL);
+        bluePercentPaint.setColor(Color.rgb(36,173,222));
 
         percentStrokePaint = new Paint();
         percentStrokePaint.setFlags(Paint.ANTI_ALIAS_FLAG);
@@ -120,7 +144,6 @@ public class LedButton extends View {
 
         rect = new RectF(0,0,0,0);
         shadowRect = new RectF(0,0,0,0);
-        innerRect = new RectF(0,0,0,0);
     }
 
     @Override
@@ -148,17 +171,18 @@ public class LedButton extends View {
                 heightSize = heightMeasureSpec;
                 break;
             case MeasureSpec.AT_MOST:        // wrap_content (뷰 내부의 크기에 따라 크기가 달라짐)
-                heightSize = (int)(widthSize*2.1);
+                heightSize = (int)(widthSize*0.778);    // 2.7로 나눔
+                Logger.d(this,"onMeasure",widthSize,heightSize);
                 break;
             case MeasureSpec.EXACTLY:        // fill_parent, match_parent (외부에서 이미 크기가 지정되었음)
                 heightSize = MeasureSpec.getSize(heightMeasureSpec);
                 break;
         }
-        float padding = (float) (widthSize * 0.05);
-        float shadowPadding = (float) (widthSize * 0.03);
-        rect.set(padding, padding, widthSize - padding, (float) (heightSize/2.1 - padding));
-        shadowRect.set(padding + shadowPadding, padding + shadowPadding, widthSize - padding + shadowPadding, (float) (heightSize/2.1 - padding + shadowPadding));
-        innerRect.set(padding - shadowPadding, padding - shadowPadding, widthSize - padding - shadowPadding, (float) (heightSize/2.1 - padding - shadowPadding));
+        float padding = (float) (widthSize * 0.05 * 0.37);
+        float paddingHorizontal = (float) (widthSize * 0.1);
+        float shadowPadding = (float) (widthSize * 0.03 * 0.37);
+        rect.set(paddingHorizontal, padding, widthSize - paddingHorizontal, (float) (heightSize / 2.1 - padding));
+        shadowRect.set(paddingHorizontal + shadowPadding, padding + shadowPadding, widthSize - paddingHorizontal + shadowPadding, (float) (heightSize / 2.1 - padding + shadowPadding));
         setMeasuredDimension(widthSize, heightSize);
     }
 
@@ -173,11 +197,13 @@ public class LedButton extends View {
         btnHeight = (float) (mHeight/2.1);
 
 
-        float radius = (float) (mWidth * 0.2);
+        float radius = (float) (mWidth * 0.2 * 0.37);
 
         float textX;
 
-        mTextPaint.setTextSize((float) (mWidth * 0.5));
+        mTextPaint.setTextSize((float) (mWidth * 0.5 * 0.37));
+
+        canvas.drawRect(0,0,mWidth,mHeight,clearPaint);
 
         if (isEffect) {
             if (isEnable) {
@@ -193,6 +219,7 @@ public class LedButton extends View {
                     //fillPaint.setColor(Color.rgb(255,255,255));
                     fillPaint.setShader(new LinearGradient(0, 0, 0, btnHeight, Color.rgb(255,255,255), Color.rgb(255,255,255), Shader.TileMode.MIRROR));
                     strokePaint.setColor(Color.rgb(150, 150, 150));
+                    strokePaint.setStrokeWidth(1);
                     mTextPaint.setColor(Color.rgb(30, 30, 30));
                     shadowPaint.setColor(Color.rgb(100, 100, 100));
                     canvas.drawRoundRect(shadowRect, radius, radius, shadowPaint);
@@ -202,6 +229,7 @@ public class LedButton extends View {
                 textX = (float) (mWidth * 0.5);
                 fillPaint.setColor(Color.rgb(195, 195, 195));
                 strokePaint.setColor(Color.rgb(150, 150, 150));
+                strokePaint.setStrokeWidth(1);
                 mTextPaint.setColor(Color.rgb(127, 127, 127));
                 mText = offText;
             }
@@ -217,6 +245,7 @@ public class LedButton extends View {
                 } else {
                     fillPaint.setShader(new LinearGradient(0, 0, 0, btnHeight, Color.rgb(224, 209, 178), Color.rgb(210, 178, 110), Shader.TileMode.MIRROR));
                     strokePaint.setColor(Color.rgb(150, 150, 150));
+                    strokePaint.setStrokeWidth(1);
                     mTextPaint.setColor(Color.rgb(30, 30, 30));
                     shadowPaint.setColor(Color.rgb(100, 100, 100));
                     canvas.drawRoundRect(shadowRect, radius, radius, shadowPaint);
@@ -226,6 +255,7 @@ public class LedButton extends View {
             } else {
                 fillPaint.setColor(Color.rgb(195, 195, 195));
                 strokePaint.setColor(Color.rgb(150, 150, 150));
+                strokePaint.setStrokeWidth(1);
                 mTextPaint.setColor(Color.rgb(127, 127, 127));
                 mText = offText;
             }
@@ -233,9 +263,13 @@ public class LedButton extends View {
 
         canvas.drawRoundRect(rect, radius, radius, fillPaint);
         if (isEffect & isEnable & !isChecked) {
-            float percent = (float)((btnHeight - (mWidth * 0.05)) + ((float)bright/191)*((mWidth * 0.1)-btnHeight));//((bright/191)*((contentHeight - (contentWidth * 0.05))-(contentWidth * 0.05)));
-            canvas.drawRect((float)(mWidth*0.2),(float)(mWidth * 0.05),(float)(mWidth*0.8),(float)(btnHeight - (mWidth * 0.05)),percentStrokePaint);
-            canvas.drawRect((float) (mWidth * 0.23), percent, (float) (mWidth * 0.77), (float) (btnHeight - (mWidth * 0.05)), percentPaint);
+            float redPercent = (float)((btnHeight - (mWidth * 0.05 * 0.37)) + ((float)redBright/191)*((mWidth * 0.1 * 0.37)-btnHeight));
+            float greenPercent = (float)((btnHeight - (mWidth * 0.05 * 0.37)) + ((float)greenBright/191)*((mWidth * 0.1 * 0.37)-btnHeight));
+            float bluePercent = (float)((btnHeight - (mWidth * 0.05 * 0.37)) + ((float)blueBright/191)*((mWidth * 0.1 * 0.37)-btnHeight));
+            canvas.drawRect((float)(mWidth*0.2),(float)(mWidth * 0.05 * 0.37),(float)(mWidth*0.8),(float)(btnHeight - (mWidth * 0.05 * 0.37)),percentStrokePaint);
+            canvas.drawRect((float) (mWidth * 0.22), redPercent, (float) (mWidth * 0.38), (float) (btnHeight - (mWidth * 0.05 * 0.37)), redPercentPaint);
+            canvas.drawRect((float) (mWidth * 0.42), greenPercent, (float) (mWidth * 0.58), (float) (btnHeight - (mWidth * 0.05 * 0.37)), greenPercentPaint);
+            canvas.drawRect((float) (mWidth * 0.62), bluePercent, (float) (mWidth * 0.78), (float) (btnHeight - (mWidth * 0.05 * 0.37)), bluePercentPaint);
             int id = 0;
             switch (pattern) {
                 case 0:
@@ -257,8 +291,8 @@ public class LedButton extends View {
                     id = R.drawable.ic_pattern1;
                     break;
             }
-            Bitmap mBitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getContext().getResources(), id), (int)(mWidth*0.9), (int) (mWidth*0.9), false);
-            canvas.drawBitmap(mBitmap, (float)(mWidth*0.05), (float)(mHeight*0.524), fillPaint);
+            Bitmap mBitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getContext().getResources(), id), (int)(mWidth*0.9 * 0.37), (int) (mWidth*0.9 * 0.37), false);
+            canvas.drawBitmap(mBitmap, (float)(mWidth*0.9 * 0.37), (float)(mHeight*0.524), fillPaint);
         }
         canvas.drawRoundRect(rect, radius, radius, strokePaint);
         canvas.drawText(mText, textX, (float) (btnHeight * 0.7), mTextPaint);
@@ -283,7 +317,9 @@ public class LedButton extends View {
                     } else {
                         if (isEffect) {
                             isEffect = false;
-                            bright = DEFAULT_BRIGHT;
+                            redBright = DEFAULT_BRIGHT;
+                            greenBright = DEFAULT_BRIGHT;
+                            blueBright = DEFAULT_BRIGHT;
                         }
                         setChecked(true);
                     }
@@ -307,7 +343,9 @@ public class LedButton extends View {
         isChecked = check;
         if (check) {
             pattern = 0;
-            bright = DEFAULT_BRIGHT;
+            redBright = DEFAULT_BRIGHT;
+            greenBright = DEFAULT_BRIGHT;
+            blueBright = DEFAULT_BRIGHT;
             isEffect = false;
         }
     }
@@ -316,19 +354,35 @@ public class LedButton extends View {
         isEnable = enable;
         if (!isEnable) {
             pattern = 0;
-            bright = DEFAULT_BRIGHT;
+            redBright = DEFAULT_BRIGHT;
+            greenBright = DEFAULT_BRIGHT;
+            blueBright = DEFAULT_BRIGHT;
             isEffect = false;
         }
     }
 
     // 밝기 설정
-    public void setBright(int bright) {
-        if(bright <0) {
-            this.bright = 0;
-        } else if (bright > 191) {
-            this.bright = 191;
+    public void setBright(int red, int green, int blue) {
+        if (red < 0) {
+            this.redBright = 0;
+        } else if (red > 191) {
+            this.redBright = 191;
         } else {
-            this.bright = bright;
+            this.redBright = red;
+        }
+        if (green < 0) {
+            this.greenBright = 0;
+        } else if (green > 191) {
+            this.greenBright = 191;
+        } else {
+            this.greenBright = green;
+        }
+        if (blue < 0) {
+            this.blueBright = 0;
+        } else if (blue > 191) {
+            this.blueBright = 191;
+        } else {
+            this.blueBright = blue;
         }
     }
 
@@ -344,19 +398,21 @@ public class LedButton extends View {
     public boolean getEffect() {
         return isEffect;
     }
-    //
+    // 
     public int getPattern() {
         return this.pattern;
     }
 
 
-    public void init(String onText, String offText, boolean isEnable, boolean isChecked, boolean isEffect, int bright) {
+    public void init(String onText, String offText, boolean isEnable, boolean isChecked, boolean isEffect, int red, int green, int blue) {
         this.onText = onText;
         this.offText = offText;
         this.isEnable = isEnable;
         this.isChecked = isChecked;
         this.isEffect = isEffect;
-        this.bright = bright;
+        this.redBright = red;
+        this.greenBright = green;
+        this.blueBright = blue;
     }
 
     public void setOnLedButtonListener(OnLedButtonListener listener) {
