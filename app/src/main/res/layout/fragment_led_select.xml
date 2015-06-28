@@ -11,27 +11,24 @@
         android:paddingTop="30dp"
         android:background="@color/White"
         android:orientation="horizontal">
-        <com.syncworks.slightapp.widget.RgbButton
+        <com.syncworks.slightapp.widget.LedBtn
             android:id="@id/rgb_1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            custom:off_text="RGB 1"
-            custom:on_text="✓"/>
-        <com.syncworks.slightapp.widget.RgbButton
+            style="@style/rgbBtn"
+            custom:btn_state_enabled="false"
+            custom:text_on="✓"
+            custom:text_off="RGB 1"/>
+        <com.syncworks.slightapp.widget.LedBtn
             android:id="@id/rgb_2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            custom:off_text="RGB 2"
-            custom:on_text="✓"/>
-        <com.syncworks.slightapp.widget.RgbButton
+            style="@style/rgbBtn"
+            custom:btn_state_enabled="false"
+            custom:text_on="✓"
+            custom:text_off="RGB 2"/>
+        <com.syncworks.slightapp.widget.LedBtn
             android:id="@id/rgb_3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            custom:off_text="RGB 3"
-            custom:on_text="✓"/>
+            style="@style/rgbBtn"
+            custom:btn_state_enabled="false"
+            custom:text_on="✓"
+            custom:text_off="RGB 3"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/ll_led_select"
@@ -42,69 +39,52 @@
         android:paddingBottom="20dp"
         android:background="@color/White"
         android:orientation="horizontal">
-        <com.syncworks.slightapp.widget.LedButton
+        <com.syncworks.slightapp.widget.LedBtn
             android:id="@id/led_1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            custom:off_text="1"
-            custom:on_text="✓"/>
-        <com.syncworks.slightapp.widget.LedButton
+            style="@style/ledBtn"
+            custom:btn_state_bright="true"
+            custom:text_on="✓"
+            custom:text_off="1"/>
+        <com.syncworks.slightapp.widget.LedBtn
             android:id="@id/led_2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            custom:off_text="2"
-            custom:on_text="✓"/>
-        <com.syncworks.slightapp.widget.LedButton
+            style="@style/ledBtn"
+            custom:text_on="✓"
+            custom:text_off="2"/>
+        <com.syncworks.slightapp.widget.LedBtn
             android:id="@id/led_3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            custom:off_text="3"
-            custom:on_text="✓"/>
-        <com.syncworks.slightapp.widget.LedButton
+            style="@style/ledBtn"
+            custom:text_on="✓"
+            custom:text_off="3"/>
+        <com.syncworks.slightapp.widget.LedBtn
             android:id="@id/led_4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            custom:off_text="4"
-            custom:on_text="✓"/>
-        <com.syncworks.slightapp.widget.LedButton
+            style="@style/ledBtn"
+            custom:text_on="✓"
+            custom:text_off="4"/>
+        <com.syncworks.slightapp.widget.LedBtn
             android:id="@id/led_5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            custom:off_text="5"
-            custom:on_text="✓"/>
-        <com.syncworks.slightapp.widget.LedButton
+            style="@style/ledBtn"
+            custom:text_on="✓"
+            custom:text_off="5"/>
+        <com.syncworks.slightapp.widget.LedBtn
             android:id="@id/led_6"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            custom:off_text="6"
-            custom:on_text="✓"/>
-        <com.syncworks.slightapp.widget.LedButton
+            style="@style/ledBtn"
+            custom:text_on="✓"
+            custom:text_off="6"/>
+        <com.syncworks.slightapp.widget.LedBtn
             android:id="@id/led_7"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            custom:off_text="7"
-            custom:on_text="✓"/>
-        <com.syncworks.slightapp.widget.LedButton
+            style="@style/ledBtn"
+            custom:text_on="✓"
+            custom:text_off="7"/>
+        <com.syncworks.slightapp.widget.LedBtn
             android:id="@id/led_8"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            custom:off_text="8"
-            custom:on_text="✓"/>
-        <com.syncworks.slightapp.widget.LedButton
+            style="@style/ledBtn"
+            custom:text_on="✓"
+            custom:text_off="8"/>
+        <com.syncworks.slightapp.widget.LedBtn
             android:id="@id/led_9"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            custom:off_text="9"
-            custom:on_text="✓"/>
+            style="@style/ledBtn"
+            custom:text_on="✓"
+            custom:text_off="9"/>
     </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -116,6 +96,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/background_view_rounded_single">
+
         <Button
             style="@style/ButtonText"
             android:layout_alignParentBottom="true"

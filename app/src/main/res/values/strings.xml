@@ -9,6 +9,8 @@
     <string name="str_back">뒤로</string>
     <string name="str_next">다음단계</string>
     <string name="str_complete">완료</string>
+    <string name="str_confirm">확인</string>
+    <string name="str_cancel">취소</string>
 
     <string name="lt">(</string>
     <string name="gt">)</string>

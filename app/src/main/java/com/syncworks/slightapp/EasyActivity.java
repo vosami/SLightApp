@@ -130,13 +130,13 @@ public class EasyActivity extends ActionBarActivity implements BleConsumer, OnEa
         deviceName = appPref.getString(SLightPref.DEVICE_NAME);
         deviceAddr = appPref.getString(SLightPref.DEVICE_ADDR);
         fragment1st = BleSetFragment.newInstance(deviceName, deviceAddr);
-        fragment2nd = LedSelectFragment.newInstance(0);
+        fragment2nd = LedSelectFragment.newInstance();
         fragment3rd = BrightFragment.newInstance("","");
 //        fragment4th = EffectFragment.newInstance();
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.easy_ll_fragment, fragment3rd);
+        fragmentTransaction.add(R.id.easy_ll_fragment, fragment2nd);
         fragmentTransaction.commit();
     }
 

@@ -1,0 +1,17 @@
+<resources>
+    <declare-styleable name="LedBtn">
+        <attr name="text_on" format="string" />
+        <attr name="text_off" format="string" />
+        <attr name="btn_state_checked" format="boolean"/>
+        <attr name="btn_state_enabled" format="boolean"/>
+        <attr name="btn_state_bright" format="boolean"/>
+        <attr name="bright1" format="integer" />
+        <attr name="bright2" format="integer"/>
+        <attr name="bright3" format="integer"/>
+        <attr name="type" format="enum">
+            <enum name="single" value="0"/>
+            <enum name="rgb" value="1"/>
+        </attr>
+
+    </declare-styleable>
+</resources>
