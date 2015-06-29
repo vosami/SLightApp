@@ -15,7 +15,7 @@ public class StepView extends View {
     OnStepViewTouchListener onStepViewTouchListener = null;
 
     private final static int MAX_STEP = 5;
-    private int curStep = 1;
+    private int curStep = 3;
     private int oldStep = -1;
 
     private Paint paint = null;
@@ -109,7 +109,7 @@ public class StepView extends View {
                 paint.setColor(Color.WHITE);
                 paint.setTextSize((float) (mHeight*0.6));
                 paint.setTextAlign(Paint.Align.CENTER);
-                canvas.drawText("?",middleHeight + intervalWidth * i,(float)(mHeight*0.7),paint);
+                canvas.drawText("✓",middleHeight + intervalWidth * i,(float)(mHeight*0.7),paint);
 
             } else if (curStep == i+1) {
                 paint.setColor(Color.rgb(1, 139, 185));

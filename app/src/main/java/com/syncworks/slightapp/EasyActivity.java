@@ -142,7 +142,7 @@ public class EasyActivity extends ActionBarActivity implements BleConsumer, OnEa
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.easy_ll_fragment, fragment2nd);
+        fragmentTransaction.add(R.id.easy_ll_fragment, fragment3rd);
         fragmentTransaction.commit();
     }
 
