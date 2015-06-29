@@ -24,4 +24,7 @@
 
     <item type="id" name="btn_cancel"/>
     <item type="id" name="btn_confirm"/>
+
+    <!--EasyActivity 에 나타나는 도움말 오버레이 대화창-->
+    <item type="id" name="overlay_help"/>
 </resources>

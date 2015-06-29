@@ -1,28 +1,24 @@
 package com.syncworks.slightapp.easy_fragments;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Fragment;
-import android.content.DialogInterface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.ToggleButton;
+import android.view.Window;
 
-import com.syncworks.slightapp.dialog.DialogChangePattern;
-import com.syncworks.slightapp.util.Logger;
 import com.syncworks.slightapp.R;
+import com.syncworks.slightapp.dialog.DialogChangePattern;
 import com.syncworks.slightapp.util.SelectLed;
 import com.syncworks.slightapp.widget.LedBtn;
 
-import static com.syncworks.slightapp.util.Define.*;
+import static com.syncworks.slightapp.util.Define.NUMBER_OF_COLOR_LED;
+import static com.syncworks.slightapp.util.Define.NUMBER_OF_SINGLE_LED;
+import static com.syncworks.slightapp.util.Define.TYPE_SINGLE_LED;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -81,6 +77,7 @@ public class LedSelectFragment extends Fragment {
         btnSingle[7].setOnLedBtnListener(ledBtnListener);
         btnSingle[8].setOnLedBtnListener(ledBtnListener);
 
+        showOverLay();
         return view;
     }
 
@@ -195,5 +192,21 @@ public class LedSelectFragment extends Fragment {
         mListener = null;
     }
 
+    private void showOverLay() {
 
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.dialog_help_led_select);
+        dialog.setCanceledOnTouchOutside(true);
+        //for dismissing anywhere you touch
+        View masterView = dialog.findViewById(R.id.overlay_help);
+        masterView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
 }

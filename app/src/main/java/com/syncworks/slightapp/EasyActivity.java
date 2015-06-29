@@ -1,12 +1,16 @@
 package com.syncworks.slightapp;
 
+import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
 
 import com.syncworks.blelib.BleConsumer;
 import com.syncworks.slightapp.easy_fragments.BleSetFragment;
@@ -38,6 +42,8 @@ public class EasyActivity extends ActionBarActivity implements BleConsumer, OnEa
         }
         findView();
         createFragment();
+
+        //showOverLay();
     }
 
     private StepView stepView = null;
@@ -193,5 +199,23 @@ public class EasyActivity extends ActionBarActivity implements BleConsumer, OnEa
     @Override
     public void onNotDialog() {
 
+    }
+
+    private void showOverLay() {
+
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.dialog_help_led_select);
+        dialog.setCanceledOnTouchOutside(true);
+        //for dismissing anywhere you touch
+        View masterView = dialog.findViewById(R.id.overlay_help);
+        masterView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }

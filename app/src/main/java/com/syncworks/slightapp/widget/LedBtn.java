@@ -16,23 +16,19 @@ import com.syncworks.slightapp.util.Logger;
 
 
 /**
- * TODO: document your custom view class.
+ * Easy Activity / LedSelectFragment 에서 사용하는 Led Btn View
  */
 public class LedBtn extends Button {
-
     private OnLedBtnListener onLedBtnListener;
 
+    // @drawable/background 에 적용되는 버튼 State
     private final static int[] BTN_STATE_CHECKED = {R.attr.btn_state_checked};
     private final static int[] BTN_STATE_ENABLED = {R.attr.btn_state_enabled};
     private final static int[] BTN_STATE_BRIGHT = {R.attr.btn_state_bright};
 
-    private int state = 0;
-
 
     private final static int MAX_BRIGHT = 191;
     private final static int DEFAULT_BRIGHT = 95;
-
-
 
     public final static int TYPE_SINGLE_LED = 0;
     public final static int TYPE_RGB_LED = 1;
@@ -73,10 +69,11 @@ public class LedBtn extends Button {
         syncTextState();
     }
 
+    // 초기화 작업
     private void init(Context context, AttributeSet attrs, int defStyle) {
+        // LedBtn View 를 layout 에서 설정한 상태 확인
         if (attrs != null) {
             final TypedArray a = context.obtainStyledAttributes(attrs,R.styleable.LedBtn,defStyle,0);
-
             textOn = a.getString(R.styleable.LedBtn_text_on);
             textOff = a.getString(R.styleable.LedBtn_text_off);
             isBtnChecked = a.getBoolean(R.styleable.LedBtn_btn_state_checked, false);
@@ -88,7 +85,8 @@ public class LedBtn extends Button {
             bright3 = a.getInt(R.styleable.LedBtn_bright3,DEFAULT_BRIGHT);
         }
 
-        fillPaint.setStyle(Paint.Style.FILL);
+        // onDraw 에서 사용하는 페인트 설정정
+       fillPaint.setStyle(Paint.Style.FILL);
         fillPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
         fillPaint.setColor(Color.rgb(220, 220, 220));
 
@@ -234,13 +232,12 @@ public class LedBtn extends Button {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (isBtnBright) {
+            float mWidth = getWidth();
+            float mHeight = getHeight();
+            centerX = (float)(mWidth*0.5);
+            centerY = (float)(mHeight*0.5);
+            // 단색 LED 일 때 그리기
             if (type == TYPE_SINGLE_LED) {
-                float mWidth = getWidth();
-                float mHeight = getHeight();
-
-                centerX = (float)(mWidth*0.5);
-                centerY = (float)(mHeight*0.5);
-
                 if (mWidth > mHeight) {
                     radius = (float) (mHeight * 0.5);
                 } else {
@@ -255,6 +252,14 @@ public class LedBtn extends Button {
 
                drawPercent(canvas);
                 Logger.d(this, "onDraw", mWidth, mHeight);
+            }
+            // RGB LED 일 때 그리기
+            else {
+                if (mWidth/3 > mHeight) {
+                    radius = (float) (mHeight * 0.5);
+                } else {
+                    radius = (float) (mWidth * 0.5);
+                }
             }
         }
     }

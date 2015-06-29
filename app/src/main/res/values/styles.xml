@@ -6,9 +6,8 @@
         <item name="colorPrimary">@color/Gold</item>
     </style>
 
+    <!--버튼 텍스트 , 글자 그림자-->
     <style name="ButtonText">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_margin">3dp</item>
